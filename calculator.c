@@ -3,10 +3,10 @@
 #include <string.h>
 #include <stdbool.h>
 
-void head(void), menu(int option), decToBin(void), decToHexa(void);
+void head(void), menu(int option), decToBin(void), decToHexa(void), binToDec(void);
 
 
-int main ()
+int main()
 {
     int op;
 
@@ -27,11 +27,7 @@ int main ()
 
         fflush(stdin);
 
-        system("cls");
-
         menu(op);
-
-        system("pause");
 
     }while (op);
 
@@ -48,31 +44,32 @@ void head(void)
 
 void menu(int option)
 {
-
     switch (option)
     {
     case 1:
         printf("\nDecimal to binary.\n");
         decToBin();
         break;
-    
+
     case 2:
         printf("\nDecimal to hexadecimal.\n");
         decToHexa();
         break;
 
     case 3:
+        printf("\nBinary to decimal.\n");
+        binToDec();
         break;
 
     case 4:
         break;
-    
+
     case 5:
         break;
-    
+
     case 6:
         break;
-    
+
     case 0:
         printf("\nGood bye, partner ...\n");
         abort();
@@ -80,97 +77,87 @@ void menu(int option)
 
     default:
         printf("\nNo entered valid option!\n");
-        break;   
+        break;
     }
-
 }
 
 void decToBin(void)
 {
-    int dec_num1, rest_div, dec_quot1, b = 0;
-    char rest_1[100], num_bin[100][100];
-    bool is_num = false;
+    int valor_decimal, resto_binario, quo_decimal, b = 0;
+    char binarios[100][100];
 
-    do
+    printf("Enter a decimal value to convert: ");
+    scanf("%d", &valor_decimal);
+
+    printf("\n\n");
+
+    quo_decimal = valor_decimal / 2;
+    resto_binario = valor_decimal % 2;
+
+    while (valor_decimal != 0)
     {
-        printf("Enter a decimal value to convert: ");
-        if (scanf("%d", &dec_num1) == 1)
-        {
-            printf("\n\n");
+        sprintf(binarios[b], "%d", resto_binario);
 
-            dec_quot1 = dec_num1 / 2;
-            rest_div = dec_num1 % 2;
-            
-            while (dec_num1 != 0)
-            {
-                sprintf(rest_1, "%d", rest_div);
-                strcpy(num_bin[b], rest_1);
+        printf("Quocient: %d / Divisor: 2\n", valor_decimal);
+        printf("Remainder: %d\n\n", resto_binario);
 
-                printf("Quotient: %d / Diviser: 2\n", dec_num1);
-                printf("Rest: %d\n\n", rest_div);
+        valor_decimal = quo_decimal;
+        quo_decimal = valor_decimal / 2;
+        resto_binario = valor_decimal % 2;
 
-                dec_num1 = dec_quot1;
-                dec_quot1 = dec_num1 / 2;
-                rest_div = dec_num1 % 2;
+        b++;
+    }
 
-                b++;
-            }
-            
-            printf("Result: ");
-            for (int i = b - 1; i >= 0; i--)
-            {
-                printf("%s", num_bin[i]);
-            }
-            
-            printf("\n\n");
+    printf("Result: ");
+    for (int i = b - 1; i >= 0; i--)
+    {
+        printf("%s", binarios[i]);
+    }
 
-            is_num = true;
-
-            break;
-        }
-        else
-        {
-            printf("\nA valid number wasn't entered.\n");
-        }
-
-    }while (is_num);
-    
+    printf("\n\n");
 }
 
-void decToHexa(void)
-{
-    int valor_dec, quotient, rest;
-    bool is_valid = false;
+void decToHexa(void) {
+    int num_decimal, quoc_decimal, resto_hexa, h = 0;
+    char hexa[100][100];
 
-    do
+    printf("Enter a decimal value to convert: ");
+    scanf("%d", &num_decimal);
+
+    printf("\n\n");
+
+    quoc_decimal = num_decimal / 16;
+    resto_hexa = num_decimal % 16;
+
+    while (num_decimal != 0) 
     {
-        printf("Enter a decimal value to convert: ");
-        if (scanf("%d", &valor_dec) == 1)
+        quoc_decimal = num_decimal / 16;
+        resto_hexa = num_decimal % 16;
+
+        sprintf(hexa[h], "%d", resto_hexa);
+
+        if (resto_hexa >= 10 && resto_hexa <= 15) 
         {
-            printf("\n\n");
-
-            while (valor_dec != 0)
-            {
-                quotient = valor_dec / 16;
-                rest = valor_dec % 16;
-
-                printf("Quotient: %d / Diviser: 16\n", valor_dec);
-                printf("Rest: %d\n\n", rest);
-
-                valor_dec = quotient;
-            }
-            
-            printf("Result: ");
-
-            is_valid = true;
-
-            break;
+            hexa[h][0] = 'A' + (resto_hexa - 10);
         }
-        else
-        {
-            printf("\nA valid number wasn't entered!\n");
-        }
-        
-    } while (is_valid);
-    
+
+        printf("Quotient: %d / Divisor: 16\n", num_decimal);
+        printf("Remainder: %d\n\n", resto_hexa);
+
+        num_decimal = quoc_decimal;
+        h++;
+    }
+
+    printf("Result: ");
+    for (int j = h - 1; j >= 0; j--) 
+    {
+        printf("%s", hexa[j]);
+    }
+
+    printf("\n\n");
+}
+
+void binToDec(void)
+{
+
 }
