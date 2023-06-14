@@ -123,7 +123,7 @@ void decToBin(void)
     {
         sprintf(value.values[value.n], "%d", value.remainder);
 
-        printf("\033[31m Quotient: ", value.num);
+        printf("\033[31m Quotient: ");
         printf("\033[0m%d / ", value.num);
         printf("\033[31m Divisor: ");
         printf("\033[0m2\n");
@@ -176,7 +176,7 @@ void decToHexa(void) {
             value.values[value.n][0] = 'A' + (value.remainder - 10);
         }
 
-        printf("\033[33m Quotient: ", value.num);
+        printf("\033[33m Quotient: ");
         printf("\033[0m%d / ", value.num);
         printf("\033[33m Divisor: ");
         printf("\033[0m16\n");
