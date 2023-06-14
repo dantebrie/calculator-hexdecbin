@@ -4,7 +4,8 @@
 #include <math.h>
 #include <ctype.h>
 
-void head(void), menu(int option), decToBin(void), decToHexa(void), binToDec(void), binToHexa(void), hexaToDec(void), hexaToBin(void);
+void options(int option), decToBin(void), decToHexa(void), binToDec(void), binToHexa(void), hexaToDec(void), hexaToBin(void);
+int menu();
 
 struct Calculator
 {
@@ -23,84 +24,92 @@ int main()
 
     do
     {
-        head();
-        printf("Hello! Choose a option below: \n\n");
-        printf("1 - Decimal to binary\n");
-        printf("2 - Decimal to hexadecimal\n");
-        printf("3 - Binary to decimal\n");
-        printf("4 - Binary to hexadecimal\n");
-        printf("5 - Hexadecimal to decimal\n");
-        printf("6 - Hexadecimal to binary\n");
-        printf("0 - Exit\n\n");
-
-        printf("Which option do you want? ");
-        scanf("%d", &op);
-
-        fflush(stdin);
-
-        menu(op);
+        op = menu();
+        system("cls");
 
     }while (op);
 
     return 0;
 }
 
-void head(void)
+int menu()
 {
-    printf("=========================================\n");
-    printf("=====          CALCULATOR           =====\n");
-    printf("=========================================\n");
-    printf("\n\n");
-}
+    int op;
 
-void menu(int option)
+    printf("\t\t\t  Hello! Choose a option below: \n\n");
+    printf("\t\t\t====================================\n");
+    printf("\t\t\t| 1 - Decimal to binary            |\n");
+    printf("\t\t\t|----------------------------------|\n");
+    printf("\t\t\t| 2 - Decimal to hexadecimal       |\n");
+    printf("\t\t\t|----------------------------------|\n");
+    printf("\t\t\t| 3 - Binary to decimal            |\n");
+    printf("\t\t\t|----------------------------------|\n");
+    printf("\t\t\t| 4 - Binary to hexadecimal        |\n");
+    printf("\t\t\t|----------------------------------|\n");
+    printf("\t\t\t| 5 - Hexadecimal to decimal       |\n");
+    printf("\t\t\t|----------------------------------|\n");
+    printf("\t\t\t| 6 - Hexadecimal to binary        |\n");
+    printf("\t\t\t|----------------------------------|\n");
+    printf("\t\t\t| 0 - Exit                         |\n");
+    printf("\t\t\t====================================\n\n");
+    printf("\t\t\t  Which option do you want? ");
+    scanf("%d", &op);
+
+    system("cls");
+
+    options(op);
+
+    system("pause");
+
+    return op;
+}
+void options(int option)
 {
     switch (option)
     {
     case 1:
-        printf("\nDecimal to binary.\n");
         decToBin();
         break;
 
     case 2:
-        printf("\nDecimal to hexadecimal.\n");
         decToHexa();
         break;
 
     case 3:
-        printf("\nBinary to decimal.\n");
         binToDec();
         break;
 
     case 4:
-        printf("\nBinary to hexadecimal.\n");
         binToHexa();
         break;
 
     case 5:
-        printf("\nHexadecimal to decimal.\n");
         hexaToDec();
         break;
 
     case 6:
-        printf("\nHexadecimal to binary");
         hexaToBin();
         break;
 
     case 0:
-        printf("\nGood bye, partner ...\n");
+        printf("\n\033[4;33m In case I don't see you... good afternoon, good evening, and good night!");
+        printf("\n\033[0m");
         abort();
         break;
 
     default:
-        printf("\nNo entered valid option!\n");
+        printf("\nThis is not a valid option!\n");
         break;
     }
 }
 
 void decToBin(void)
 {
-    printf("Enter a decimal value to convert: ");
+    printf("===============================================================\n");
+    printf("\033[4;31m You have chosen Decimal to Binary conversion!");
+    printf("\033[0m\n\n");
+    printf("\033[31m Enter a decimal value to convert: ");
+    printf("\033[0m");
     scanf("%d", &value.num);
 
     printf("\n\n");
@@ -114,9 +123,13 @@ void decToBin(void)
     {
         sprintf(value.values[value.n], "%d", value.remainder);
 
-        printf("Quocient: %d / Divisor: 2\n", value.num);
-        printf("Remainder: %d\n\n", value.remainder);
-
+        printf("\033[31m Quotient: ", value.num);
+        printf("\033[0m%d / ", value.num);
+        printf("\033[31m Divisor: ");
+        printf("\033[0m2\n");
+        printf("\033[31m Remainder: ");
+        printf("\033[0m%d\n", value.remainder);
+        printf("-------------------------------------\n\n");
         value.num = value.quotient;
         value.quotient = value.num / 2;
         value.remainder = value.num % 2;
@@ -124,18 +137,24 @@ void decToBin(void)
         value.n++;
     }
 
-    printf("Result: ");
+    printf("\n");
+    printf("\033[31m Value converted: ");
     for (int i = value.n - 1; i >= 0; i--)
     {
-        printf("%s", value.values[i]);
+        printf("\033[0;4m%s", value.values[i]);
+        continue;
     }
 
-    printf("\n\n");
+    printf("\n\033[0m===============================================================\n");
 }
 
 void decToHexa(void) {
 
-    printf("Enter a decimal value to convert: ");
+    printf("===============================================================\n");
+    printf("\033[4;33m You have chosen Decimal to Hexadecimal conversion!");
+    printf("\033[0m\n\n");
+    printf("\033[33m Enter a decimal value to convert: ");
+    printf("\033[0m");
     scanf("%d", &value.num);
 
     printf("\n\n");
@@ -157,25 +176,36 @@ void decToHexa(void) {
             value.values[value.n][0] = 'A' + (value.remainder - 10);
         }
 
-        printf("Quotient: %d / Divisor: 16\n", value.num);
-        printf("Remainder: %d\n\n", value.remainder);
+        printf("\033[33m Quotient: ", value.num);
+        printf("\033[0m%d / ", value.num);
+        printf("\033[33m Divisor: ");
+        printf("\033[0m16\n");
+        printf("\033[33m Remainder: ");
+        printf("\033[0m%d\n\n", value.remainder);
+        printf("-------------------------------------\n\n");
 
         value.num = value.quotient;
         value.n++;
     }
+    printf("\n");
 
-    printf("Result: ");
+    printf("\033[33m Value converted: ");
     for (int j = value.n - 1; j >= 0; j--) 
     {
-        printf("%s", value.values[j]);
+        printf("\033[0;4m%s", value.values[j]);
+        continue;
     }
 
-    printf("\n\n");
+    printf("\n\033[0m===============================================================\n");
 }
 
 void binToDec(void)
 {
-    printf("Enter a binary value: ");
+    printf("===============================================================\n");
+    printf("\033[4;34m You have chosen Binary to Decimal conversion!");
+    printf("\033[0m\n\n");
+    printf("\033[34m Enter a binary value: ");
+    printf("\033[0m");
     scanf("%s", value.alpha);
 
     value.total_alpha = strlen(value.alpha);
@@ -186,18 +216,20 @@ void binToDec(void)
         if (value.alpha[i] == '1')
             value.num += pow(2, b);
     }
-    
-    printf("\n\n");
 
-    printf("Result: %d", value.num);
-
-    printf("\n\n");
-
+    printf("\n");
+    printf("\033[34m Value converted: ");
+    printf("\033[0;4m%d", value.num);
+    printf("\n\033[0m===============================================================\n");
 }
 
 void binToHexa(void)
 {
-    printf("Enter a binary value: ");
+    printf("===============================================================\n");
+    printf("\033[4;32m You have chosen Binary to Hexadecimal conversion!");
+    printf("\033[0m\n\n");
+    printf("\033[32m Enter a binary value: ");
+    printf("\033[0m");
     scanf("%s", value.alpha);
 
     value.total_alpha = strlen(value.alpha);
@@ -230,18 +262,23 @@ void binToHexa(void)
         value.n++;
     }
     
-    printf("Result: ");
+    printf("\n");
+    printf("\033[32m Value converted: ");
     for (int d = value.n - 1; d >= 0; d--)
     {
-        printf("%s", value.values[d]);
+        printf("\033[0;4m%s", value.values[d]);
+        continue;
     }
-
-    printf("\n\n");
+    printf("\n\033[0m===============================================================\n");
 }
 
 void hexaToDec(void)
 {
-    printf("Enter a hexadecimal value: ");
+    printf("===============================================================\n");
+    printf("\033[4;35m You have chosen Hexadecimal to Decimal conversion!");
+    printf("\033[0m\n\n");
+    printf("\033[35m Enter a hexadecimal value: ");
+    printf("\033[0m");
     scanf("%s", value.alpha);
 
     value.total_alpha = strlen(value.alpha);
@@ -253,14 +290,19 @@ void hexaToDec(void)
     
     sscanf(value.alpha, "%x", &value.num);
 
-    printf("Result: %d", value.num);
-
-    printf("\n\n");
+    printf("\n");
+    printf("\033[35m Value converted: ");
+    printf("\033[0;4m%d", value.num);
+    printf("\n\033[0m===============================================================\n");
 }
 
 void hexaToBin (void)
 {
-    printf("Enter a hexadecimal value: ");
+    printf("===============================================================\n");
+    printf("\033[4;36m You have chosen Hexadecimal to Binary conversion!");
+    printf("\033[0m\n\n");
+    printf("\033[36m Enter a hexadecimal value: ");
+    printf("\033[0m");
     scanf("%s", value.alpha);
     
     value.total_alpha = strlen(value.alpha);
@@ -269,8 +311,6 @@ void hexaToBin (void)
     {
         value.alpha[g] = toupper(value.alpha[g]);
     }
-    
-    printf("\n\n");
 
     sscanf(value.alpha, "%x", &value.num);
 
@@ -286,11 +326,13 @@ void hexaToBin (void)
         value.n++;
     }
     
-    printf("Result: ");
+    printf("\n\n");
+
+    printf("\033[36m Value converted: ");
     for (int c = value.n - 1; c >= 0; c--)
     {
-        printf("%s", value.values[c]);
+        printf("\033[0;4m%s", value.values[c]);
+        continue;
     }
-    
-    printf("\n\n");
+    printf("\n\033[0m===============================================================\n");
 }
